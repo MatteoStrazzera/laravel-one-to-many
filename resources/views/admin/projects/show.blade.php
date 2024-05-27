@@ -11,10 +11,13 @@
                 <div class="col-6">
                     <ul class="list-unstyled">
                         <li>
-
-                        </li>
-                        <li>
                             <strong>Description:</strong> {{ $project->description }}
+                        </li>
+                        <hr>
+                        <li>
+                            <div class="metadata">
+                                <strong>Type:</strong> {{ $project->type ? $project->type->name : 'No type assigned' }}
+                            </div>
                         </li>
                         <hr>
                         <li>
