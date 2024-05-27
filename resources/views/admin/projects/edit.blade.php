@@ -34,6 +34,16 @@
                 @enderror
             </div>
             <div class="mb-3">
+                <label for="type_id" class="form-label">Type</label>
+                <select class="form-select form-select" name="type_id" id="type_id">
+                    <option selected disabled>Select a Type</option>
+                    @foreach ($types as $type)
+                        <option value="{{ $type->id }}" {{ $type->id == old('type_id') ? 'selected' : '' }}>
+                            {{ $type->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="mb-3">
                 <label for="url_repo" class="form-label">Repository URL</label>
                 <input type="text" class="form-control @error('url_repo') is-invalid @enderror" name="url_repo"
                     id="url_repo" aria-describedby="url_repoHelper" placeholder="https://"
