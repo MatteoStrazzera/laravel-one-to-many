@@ -6,7 +6,7 @@
 
         @include('partials.alert-error-form')
 
-        <form action="{{ route('admin.projects.update', $project) }}" method="post">
+        <form action="{{ route('admin.projects.update', $project) }}" method="post" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="mb-3">
@@ -21,17 +21,25 @@
                     </div>
                 @enderror
             </div>
-            <div class="mb-3">
-                <label for="image" class="form-label">Image</label>
-                <input type="text" class="form-control @error('image') is-invalid @enderror" name="image"
-                    id="image" aria-describedby="imageHelper" placeholder="https://"
-                    value="{{ old('image', $project->image) }}" />
-                <small id="imageHelper" class="form-text text-muted">Type an image URL</small>
-                @error('image')
-                    <div class="text-danger">
-                        {{ $message }}
-                    </div>
-                @enderror
+            <div class="d-flex gap-3 mb-3">
+                @if (Str::startsWith($project->image, 'https://'))
+                    <img width="140" src="{{ $project->image }}" alt="{{ $project->title }}">
+                @else
+                    <img width="140" src="{{ asset('storage/' . $project->image) }}" alt="{{ $project->title }}">
+                @endif
+                <div>
+                    <label for="image" class="form-label">Image</label>
+                    <input type="file" class="form-control @error('image') is-invalid @enderror" name="image"
+                        id="image" aria-describedby="imageHelper" placeholder="https://"
+                        value="{{ old('image', $project->image) }}" />
+                    <small id="imageHelper" class="form-text text-muted">Type an image URL</small>
+                    @error('image')
+                        <div class="text-danger">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+
             </div>
             <div class="mb-3">
                 <label for="type_id" class="form-label">Type</label>

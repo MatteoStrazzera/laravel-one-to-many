@@ -6,7 +6,7 @@
 
         @include('partials.alert-error-form')
 
-        <form action="{{ route('admin.projects.store') }}" method="post">
+        <form action="{{ route('admin.projects.store') }}" method="post" enctype="multipart/form-data">
             @csrf
 
             <div class="mb-3">
@@ -22,7 +22,7 @@
             </div>
             <div class="mb-3">
                 <label for="image" class="form-label">Image</label>
-                <input type="text" class="form-control @error('image') is-invalid @enderror" name="image"
+                <input type="file" class="form-control @error('image') is-invalid @enderror" name="image"
                     id="image" aria-describedby="imageHelper" placeholder="https://" value="{{ old('image') }}" />
                 <small id="imageHelper" class="form-text text-muted">Type an image URL</small>
                 @error('image')

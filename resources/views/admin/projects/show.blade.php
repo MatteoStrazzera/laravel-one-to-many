@@ -6,7 +6,12 @@
             <h2 class="text-muted">{{ $project->title }}</h2>
             <div class="row py-4">
                 <div class="col-6">
-                    <img class="img-fluid" src="{{ $project->image }}" alt="{{ $project->title }}">
+                    @if (Str::startsWith($project->image, 'https://'))
+                        <img class="img-fluid" loading="lazy" src="{{ $project->image }}" alt="{{ $project->title }}">
+                    @else
+                        <img class="img-fluid" loading="lazy" src="{{ asset('storage/' . $project->image) }}"
+                            alt="{{ $project->title }}">
+                    @endif
                 </div>
                 <div class="col-6">
                     <ul class="list-unstyled">
